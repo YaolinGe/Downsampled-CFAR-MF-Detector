@@ -1,0 +1,2 @@
+frequency: 50kHz
+number of pulses: 10 (i think)

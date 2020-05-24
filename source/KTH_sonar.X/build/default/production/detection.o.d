@@ -1,0 +1,19 @@
+build/default/production/detection.o:  \
+detection.c  \
+SONARconfig.h  \
+sonar.h  \
+ delay.h  \
+pulse.h  \
+flags.h  \
+downlink.h  \
+dsp.h  \
+libq.h  \
+detection.h  \
+time.h  \
+ memory.h  \
+sonar_dps.h  \
+modes.h  \
+messages.h  \
+sampling.h  \
+commands.h  \
+ sonar_math.h 

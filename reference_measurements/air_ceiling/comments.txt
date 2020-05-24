@@ -1,0 +1,4 @@
+range: ca 2.5m
+freq: 47kHz
+pulses: 80
+voltage: 250

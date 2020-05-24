@@ -1,0 +1,5 @@
+sine_tank is sinetrain, 47kHz, 180V, 50 pulses
+square_tank is squaretrain, (set)47kHz, 180V, 50 pulses
+chirp_tank1 47kHz, 120V, 2kHz BW
+chirp_tank1 47kHz, 180V, 4kHz BW
+Fs=300e3; 

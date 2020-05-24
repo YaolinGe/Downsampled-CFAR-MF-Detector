@@ -1,0 +1,13 @@
+All datasets with delay:
+Delay between sampling and pulsing: 3200 [us]
+
+Combined sequence:
+20 pulses chirp
+300 [us] delay
+10 pulses pulsetrain
+
+-1 in the data means that samples have been added because
+of time delay between end of the pulse and start of sampling
+
+center frequency for pulses, for all measurements: 50kHz
+sampling frequency: 400kHz

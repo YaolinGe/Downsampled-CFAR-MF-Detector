@@ -1,0 +1,210 @@
+Sonar comm-protocol, 04/08/2017
+Prefix is always address of the sonar. 
+
+----- CURRENT COMMANDS ---------------------------
+
+PSS, print sonar settings
+send $000$PSS$
+Response: "Sonar settings:" and list of parameters
+
+DSV, download storage vector
+send $000$DSV$
+Response: The storage vector values are transmitted
+
+DCV, download correlation vector
+send $000$DCV$
+Response: The correlation storage vector values for the last 
+echo are transmitted
+
+DTV, download correlation vector
+send $000$DTV$
+Response: The time storage vector values for the last
+echo are transmitted
+
+DB, execute debug command
+Send $000$DBM$
+Response: "Executing debug command"
+
+DBM, toggle debug mode  
+Send $000$DBM$
+Response: "Debug mode status: " and then 0 or 1 
+if active or not
+
+SDV, set value on "debug variable"
+Send $000$DS200$
+Response: "Debug variable set to: 200"
+NOTE: user has to implement what variable should actually 
+be set in commands.c->void cmnd_set_debug_var(char *data,int cmdlen);
+
+SV, set voltage to X
+Send $000$SV150$
+Response: "Voltage set to: 150"
+
+SF, set frequency to X
+Send $000$SF95000$
+Response: "Frequency set to: 95000"
+
+SNP, set number of pulses to X
+send $000$SNP20$
+Response: "Number of pulses set to: 20"
+
+SSL, set storage length to X
+Send $000$SSL10000$
+Response: ADC buffer deallocated. 
+Storage memory successfully allocated (size: 10000)
+
+SQP, send square pulse
+Send $000$SQP$
+Response: Sending square pulse
+
+SIP, send sine pulse
+Send $000$SNP$
+Response: -- Not implemented --
+
+CHP, send chirp pulse
+Send $000$CHP$
+Response: -- Not implemented --
+
+LF, load file into storage
+Send $000$LF$
+Resonse: "Waiting for file with data values"
+Immidiately after, send a text file with the values to load into 
+the buffer. Values should be terminated by ; or ;LFCR
+Values will be stored in memory->stored_echo, and the function will print 
+how many values were successfully loaded. If the file has more values than 
+there is space in memory->stored_echo array, the exceeding values will be 
+written over the beginning values of the storage array
+
+SP, set speed of sound in m/s
+Example;
+Send -> $000$SP340$
+Response -> "Speed of sound set to 340"
+
+PL, pulse and listen only
+Send -> $000$PL$ 
+Response: Sending pulse and listening only
+
+THR, threshold scaler during reverberation of transducer
+Send -> $000$THR6$ 
+Response: Threshold reverb scaler set to 6
+
+THN, threshold scaler during nominal detection
+Send -> $000$THN2$ 
+Response: Threshold reverb scaler set to 2
+
+POS, get gps position
+
+TIM, get gps time
+
+DW, detect waveform
+
+PLC, Ping listen and correlate
+
+SWS, Set waveform sine
+
+SWC, Set waveform chirp
+
+ATR	, threshold for mf detector
+Example;
+Send -> $000$ATR200$
+Response -> "Amplitude threshold set to: 200"
+
+STD, set measure startdelay in microseconds.
+Example;
+Send -> $000$STD9999$
+Reponse -> "Sampling delay 9999 microseconds"
+
+DCW, download correlation waveform 
+Example:
+Send -> $000$DCW$
+Response: Series of values in the wave form storage vector
+
+
+
+
+PORTSPEED is 921600 bps for UART.
+System voltage shall be 12V.
+
+
+
+
+
+
+
+
+
+
+---- old commands--- 
+
+RL, set length of raw ADC array to X
+Send $000$RL30000$
+Response: Length of raw listen mode ADC vector is: 30000
+
+
+
+OR, toggle raw output of signal
+Example;
+Send -> $000$OR$
+Reponse -> "RAW output enabled" or "RAW output disabled"
+
+PT, send pulsetrain(number of pulses, frequency, voltage)
+pulses 1-1000, frequency 1000-500000, voltage 5 - 280V
+Example;
+Send -> $000$PT15:100000:150$
+Reponse -> Range or raw output
+
+CT, send chirptrain(number of pulses, voltage, from_frequency, to_frequency)
+pulses 1-1000, voltage 5 - 320V, from_frequency 1000-500000, to_frequency 1000-500000
+Example;
+Send -> $000$CT20:150:195000:205000$
+Reponse - > Range or raw output
+
+SP, set speed of sound in m/s
+Example;
+Send -> $000$SP340$
+Response -> "Speed of sound set to 340"
+
+TE, threshold exceedance level factor in percent (multiplier for noise RMS if AT=1)
+Example;
+Send -> $000$TE750$
+Response -> "Threshold exeedance level set to 750" 
+
+AP, toggle autopinging on/off
+Example;
+Send -> $000$AP$
+Response -> "Auto-pinging enabled" or "Auto-pinging disabled"
+
+MF, matched filter threshold
+Example;
+Send -> $000$MF250$
+Response -> "MF Threshold set to 250"
+
+VT, set ADC output tolerence for voltage changing and number of pulse changing
+Example;
+Send -> $000$VT50$
+Response -> "Amplitude Tolerance set to 50" 
+
+IA, set ideal ADC output value of the received signal
+Example;
+Send -> $000$IA250$
+Response -> "Ideal Amplitude set to 250" 
+
+MR, toggle the average of certain number of ranges
+Example;
+Send -> $000$MR$
+Response -> "Range-averaging disabled" or "Range-averaging enabled"
+
+NP, set the number of ranges for average
+Example;
+Send -> $000$NP10$
+Response -> "Number of pings set to 250"
+
+VI, request value of all variables
+Example;
+Send -> $000$VI$
+Response -> Variables and their values 
+
+
+
+
+
